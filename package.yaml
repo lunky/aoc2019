@@ -36,6 +36,7 @@ executables:
     dependencies:
     - aoc2019
     - time
+    - criterion
 
 tests:
   aoc2019-test:

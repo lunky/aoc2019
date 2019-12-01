@@ -8,7 +8,7 @@ spec = do
     describe "Lib" $ 
         it "should run a noop test" $ 
             1 `shouldBe` 1
-    describe "day1" $ do
+    describe "day1" $ 
         it "should do sample 1" $ do
             let input = "12"
             let expected = 2 
