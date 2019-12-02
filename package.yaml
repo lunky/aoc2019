@@ -24,6 +24,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+  - split
 
 executables:
   aoc2019-exe:
@@ -36,7 +38,6 @@ executables:
     dependencies:
     - aoc2019
     - time
-    - criterion
 
 tests:
   aoc2019-test:
