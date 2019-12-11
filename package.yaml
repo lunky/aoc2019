@@ -36,9 +36,27 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -main-is Main
     dependencies:
     - aoc2019
     - time
+    - directory
+    - filepath
+    - text
+  day-advance:
+    main:                Advance.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -main-is Advance
+    dependencies:
+    - aoc2019
+    - time
+    - directory
+    - filepath
+    - text
 
 tests:
   aoc2019-test:

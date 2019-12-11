@@ -1,0 +1,11 @@
+module Day%%DAY_NUMBER%%Spec where
+
+import Day%%DAY_NUMBER%%
+import Test.Hspec
+
+spec :: Spec
+spec = do
+    describe "Lib" $ do
+        it "should run a noop test" $ do
+            1 `shouldBe` 1
+    --describe "Day%%DAY_NUMBER%%" $ do
