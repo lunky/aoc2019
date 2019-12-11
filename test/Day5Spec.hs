@@ -3,8 +3,9 @@ module Day5Spec where
 import Day5
 import Test.Hspec
 
+{-# ANN module "HLint: ignore Reduce duplication" #-}
 spec :: Spec
-spec = do
+spec = 
     describe "intCode" $ do
         it "intCode should match pattern 1" $ do
           let input = [1,9,10,3,2,3,11,0,99,30,40,50]

@@ -23,15 +23,15 @@ intCode offset inst input output
   | currInst == 4 = intCode (offset+2) inst input pos1Val
   | currInst == 1 = intCode (offset+4) (setVal inst dest (pos1Val + pos2Val)) input output
   | currInst == 2 = intCode (offset+4) (setVal inst dest (pos1Val * pos2Val)) input output
-  | currInst == 5 = intCode (if pos1Val/=0 then pos2Val else (offset+3)) inst input output
-  | currInst == 6 = intCode (if pos1Val==0 then pos2Val else (offset+3)) inst input output
+  | currInst == 5 = intCode (if pos1Val/=0 then pos2Val else offset+3) inst input output
+  | currInst == 6 = intCode (if pos1Val==0 then pos2Val else offset+3) inst input output
   | currInst == 7 = intCode (offset+4) (setVal inst dest (if pos1Val<pos2Val then 1 else 0)) input output
   | currInst == 8 = intCode (offset+4) (setVal inst dest (if pos1Val==pos2Val then 1 else 0)) input output
   | currInst == 0 = intCode (offset+pos1Val) inst input output
-  | otherwise = error ("invalid opcode curr=" ++ (show curr) ++ " - offset=" ++ show offset ++ " : " ++ show inst)
+  | otherwise = error ("invalid opcode curr=" ++ show curr ++ " - offset=" ++ show offset ++ " : " ++ show inst)
      where curr = inst!!offset
            currInst=curr `mod` 100
-           opCode = inst!!(offset)
+           opCode = inst!!offset
            pos1 = inst!!(offset+1)
            pos2 = inst!!(offset+2)
            dest = inst!!(offset+3)

@@ -17,12 +17,12 @@ parseInput input = (low,high)
     where [low,high] = map read $ splitOn "-" input
 
 day4 :: String -> Int
-day4 input = length $ [ x | x <- [low..high], rules x]
+day4 input = length [ x | x <- [low..high], rules x]
     where (low,high) = parseInput input
           rules x = rule1 x && rule2 x
 
 day4b :: String -> Int
-day4b input = length $ [ x | x <- [low..high], rules x]
+day4b input = length [ x | x <- [low..high], rules x]
     where (low,high) = parseInput input
           rules x = rule1 x && rule2 x && rule3 x
 

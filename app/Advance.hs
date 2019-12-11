@@ -16,14 +16,14 @@ makeTemplate templateFile outputMask dayNumber = do
         contents <- readFile templateFile
         let output = T.replace  "%%DAY_NUMBER%%" (T.pack $ show dayNumber) (T.pack contents)
         let dayFileName = T.replace "%%DAY_NUMBER%%" (T.pack $ show dayNumber) (T.pack outputMask)
-        let outPath = (takeDirectory templateFile) ++ [pathSeparator] ++ (T.unpack dayFileName) 
+        let outPath = takeDirectory templateFile ++ [pathSeparator] ++ T.unpack dayFileName 
         writeFile outPath $ T.unpack output
         putStrLn ("file written : " ++ outPath)
 
 getNextNumber path = do
     files <- listDirectory path
     let days = filter (\y -> isSuffixOf ".hs" y && isPrefixOf "Day" y ) files
-    let highest = maximum $ map(\y -> (read y)::Int ) $ map (\y ->  filter  isDigit y)  $ days
+    let highest = maximum $ map((\y -> read y::Int ) . filter  isDigit ) days
     return (highest + 1)
     
      

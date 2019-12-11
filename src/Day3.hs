@@ -23,7 +23,7 @@ rmdups = map head.group.sort
 day3' :: String -> Int
 day3' input = minimum $ map (\(x,y)->abs x+ abs y) 
     $ filter (/=(0,0))
-    $ (\y-> intersect (head y) (head $ drop 1 y))
+    $ (\y-> head y `intersect` (y!!1))
     $ map (fst . foldr move' ([],(0,0)) . reverse)
     $ parseInput  input
 
@@ -32,7 +32,7 @@ day3 input = minimum $ map (\(x,y)->abs x+ abs y) $ day3'' input
 
 day3'' :: String -> [(Int,Int)]
 day3'' input = filter (/=(0,0)) $ setIntersect a b
-  where (a,b) = (\y -> (head y, head $ drop 1 y)) 
+  where (a,b) = (\y -> (head y, y!!1)) 
           $ map (fst . foldr move' ([],(0,0)) . reverse)
           $ parseInput  input
 
@@ -44,7 +44,7 @@ day3b input = minimum $ map (\(k,v) -> (aMap Map.! k) + (bMap Map.! k) ) $ Map.t
   where 
         aMap = Map.fromList (zip a [1..])
         bMap = Map.fromList (zip b [1..])
-        (a,b) = (\y ->(tail $ head y, tail $ head $ drop 1 y))
+        (a,b) = (\y ->(tail $ head y, tail (y!!1)))
               $ map (fst . foldr move' ([(0,0)],(0,0)) . reverse)
               $ parseInput input 
 

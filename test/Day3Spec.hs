@@ -29,7 +29,7 @@ spec = do
         let grid = []
         let expected = [(2,1), (2,0), (2,-1), (2,-2), (2,-3)]
         move input (grid,(2,2)) `shouldBe` expected
-    describe "day3" $ do 
+    describe "day3" $ 
       it "should match sample 1" $ do
         let input =  "R8,U5,L5,D3\nU7,R6,D4,L4"
         let expected = 6
