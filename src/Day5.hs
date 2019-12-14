@@ -16,10 +16,10 @@ day5b input seed = snd $ intCode 0 (parseInput input) seed 0
 parseInput :: String -> [Int]
 parseInput input = map read $ splitOn "," input
 
-intCode :: Int -> [Int] -> Int -> Int -> ([Int], Int)
+intCode :: Int -> [Int] -> [Int] -> Int -> ([Int], Int)
 intCode offset inst input output
   | currInst == 99 = (inst, output)
-  | currInst == 3 = intCode (offset+2) (setVal inst pos1 input) input output
+  | currInst == 3 = intCode (offset+2) (setVal inst pos1 currInput) inputRest output
   | currInst == 4 = intCode (offset+2) inst input pos1Val
   | currInst == 1 = intCode (offset+4) (setVal inst dest (pos1Val + pos2Val)) input output
   | currInst == 2 = intCode (offset+4) (setVal inst dest (pos1Val * pos2Val)) input output
@@ -40,6 +40,7 @@ intCode offset inst input output
            pos3Mode = (opCode `div` 10000) `mod` 10
            pos1Val = if pos1Mode==0 then inst!!pos1 else pos1
            pos2Val = if pos2Mode==0 then inst!!pos2 else pos2
+           (currInput:inputRest) = input
 
 setVal :: [a] -> Int -> a -> [a]
 setVal lst idx val = begin ++ (val:end)

@@ -47,7 +47,7 @@ runDays = do
     putStrLn ("day4b: " ++ answer)
 
     contents <- readFile "data/day5.txt"
-    let answer = show $ day5 contents 1
+    let answer = show $ day5 contents [1]
     putStrLn ("day5: " ++ answer)
 
     contents <- readFile "data/day6.txt"
