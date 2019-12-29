@@ -27,7 +27,7 @@ spec =  do
         let input = "3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10"
         let expected = 18216
         day7b input `shouldBe` expected
-      describe "connect" $ do 
+      describe "connect" $ 
         it "should connect input and output of two sequences" $ do
           let input = [3]
           let input2 = [(4,[5],[6],[7]),(8,[9],[10],[11]),(12,[13],[14],[15]),(16,[17],[18],[19])]
