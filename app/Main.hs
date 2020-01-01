@@ -10,6 +10,7 @@ import Day5
 import Day6
 import Day7
 import Day8
+import Day9
 
 -- timeStamp :: IO ()
 timeStamp f = do 
@@ -70,3 +71,11 @@ runDays = do
 
     let answer = day8b (25,6) contents
     putStrLn ("day8b: \n" ++ answer)
+
+    contents <- readFile "data/day9.txt"
+    let answer = show $ day9 contents [1]
+    putStrLn ("day9: " ++ answer)
+
+    let answer = show $ day9 contents [2]
+    putStrLn ("day9b: " ++ answer)
+
