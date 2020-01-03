@@ -7,12 +7,12 @@ module Day5
        ,setVal
     ) where
 
-import Data.List.Split (splitOn,chunksOf)
+import Data.List.Split (splitOn)
 
---day5 :: String -> Int -> Int
+day5 :: String -> [Int] -> Int
 day5 input seed = snd $ intCode (parseInput input) seed 
 
---day5b :: String -> Int
+day5b :: String -> [Int] -> Int
 day5b input seed = snd $ intCode (parseInput input) seed
 
 parseInput :: String -> [Int]
@@ -42,7 +42,6 @@ intCode' offset inst input output
            dest = inst!!(offset+3)
            pos1Mode = (opCode `div` 100) `mod` 10
            pos2Mode = (opCode `div` 1000) `mod` 10
-           pos3Mode = (opCode `div` 10000) `mod` 10
            pos1Val = if pos1Mode==0 then inst!!pos1 else pos1
            pos2Val = if pos2Mode==0 then inst!!pos2 else pos2
            (currInput:inputRest) = input
@@ -52,4 +51,4 @@ setVal lst idx val = begin ++ (val:end)
   where (begin, _:end) = splitAt idx lst 
 
 
-input="1002,4,3,4,33"
+_input="1002,4,3,4,33"

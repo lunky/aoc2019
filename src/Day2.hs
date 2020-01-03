@@ -6,7 +6,7 @@ module Day2
     ) where
 import Data.List.Split (splitOn)
 
-input="1,9,10,3,2,3,11,0,99,30,40,50"
+_input="1,9,10,3,2,3,11,0,99,30,40,50"
 
 day2 :: String -> Int
 day2 input = head $ intCode 0 $ seedInput 12 2 $ parseInput input
@@ -24,7 +24,7 @@ intCode offset inst
   | inst!! offset == 1 = intCode (offset+4) (setVal inst dest (inst!!pos1 + inst!!pos2))
   | inst!! offset == 2 = intCode (offset+4) (setVal inst dest (inst!!pos1 * inst!!pos2))
   | otherwise = error ("invalid opcode " ++ show offset ++ " : " ++ show inst)
-    where [opCode,pos1,pos2,dest] = take 4 $ drop offset inst
+    where [_,pos1,pos2,dest] = take 4 $ drop offset inst
 
 setVal :: [a] -> Int -> a -> [a]
 setVal lst idx val = begin ++ (val:end)

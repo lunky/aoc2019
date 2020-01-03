@@ -5,7 +5,7 @@ module Day8
     )
     where
 import Data.Function (on)
-import Data.List (splitAt, minimumBy, transpose)
+import Data.List (minimumBy, transpose)
 import Data.List.Split (chunksOf)
     
 day8 :: (Int,Int) -> String -> Int 
@@ -30,6 +30,6 @@ helpShow x = x
 
 day8b' input (width,height) = map (helpShow.color) $ transpose $ chunksOf (width*height) $ filter (/='\n') input
 
-input = "0222112222120000"
+_input = "0222112222120000"
 
 color = foldr (\y acc-> if y/='2' then y else acc) '2'

@@ -5,9 +5,6 @@ import Test.Hspec
 
 spec :: Spec
 spec = do
-    describe "test harness" $ 
-      it "should run a noop test" $ 
-          1 `shouldBe` 1
     describe "canSee" $ do
       it "should not see any in pattern 2A" $ do
         let input = [(0,0),(3,1),(6,2),(9,3)]

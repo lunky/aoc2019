@@ -9,9 +9,9 @@ module Day4
 
 import Data.List.Split (splitOn)
 import Data.List  (group, sort)
-import qualified Data.Set as Set
+import Data.Set()
 
-input =  "382345-843167"
+_input =  "382345-843167"
 parseInput :: String -> (Int,Int)
 parseInput input = (low,high)
     where [low,high] = map read $ splitOn "-" input

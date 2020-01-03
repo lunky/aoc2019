@@ -8,8 +8,7 @@ import Data.List.Split (splitOn)
 import Data.List (find)
 import qualified Data.Map.Strict as Map
 import Data.Map (Map)
-import Data.Foldable (find)
-import Data.Maybe (catMaybes, mapMaybe, isJust)
+import Data.Maybe (mapMaybe, isJust)
 import Control.Monad (join)
 
 firstJust :: [Maybe a] -> Maybe a
@@ -44,8 +43,8 @@ findCom planetMap = findCom' seed planetMap'
           planetMap'= planetMap -- Map.fromList $ map(\(x,y) -> (y,x) ) $ Map.toList planetMap
 
 
-input="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\n"
-input2="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN"
+_input="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\n"
+_input2="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN"
 
 parseInput input = map ((\ [a, b] -> (b, a)) . splitOn ")") $ lines input
 
@@ -68,14 +67,6 @@ buildTree current planetMap =
 countOrbits :: CelestialBody a -> Int -> Int
 countOrbits (Planet name planets) count = 
         count + sum (map (\y -> countOrbits y (count+1)) planets )
-
-findAndCountOrbits :: String -> CelestialBody String -> Int 
-findAndCountOrbits search (Planet name planets) = findAndCountOrbits' search (Planet name planets) 0 
-    where findAndCountOrbits' search (Planet name planets) count = 
-                if name==search 
-                then count
-                else count + sum (map (\y -> 
-                            findAndCountOrbits' search y (count+1)) planets )
 
 findPlanet :: String -> CelestialBody String -> Maybe (CelestialBody String)
 findPlanet search (Planet name planets)   

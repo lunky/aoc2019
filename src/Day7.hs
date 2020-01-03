@@ -7,10 +7,10 @@ module Day7
     where
 
 import Day5
-import Data.Char (digitToInt,intToDigit)
-import Data.List.Split (splitOn,chunksOf)
+import Data.Char (digitToInt)
+import Data.List.Split (splitOn)
 import Data.List (permutations)
-import Data.Either
+import Data.Either()
     
 day7' :: String -> String -> Int
 day7' programStr phaseStr =   foldr(\y acc -> snd 
@@ -21,17 +21,16 @@ day7' programStr phaseStr =   foldr(\y acc -> snd
 parseInput :: String -> [Int]
 parseInput input = map read $ splitOn "," input
     
-input = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"
-input2 = "43210"
-input3 = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5"
-input4 = "3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10"
+_input = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"
+_input2 = "43210"
+_input3 = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5"
+_input4 = "3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10"
 
 day7 :: String -> Int 
 day7 input = maximum $  map (day7' input) $ permutations "01234"
 
 day7b :: String -> Int 
 day7b input = maximum $ map(\y-> head $ go $ amplifiers y (parseInput input)) $ permutations [9,8,7,6,5]
-  where parsedInput = parseInput input
 
 amplifiers :: [Int] -> [Int] -> [(Int,[Int],[Int],[Int])]
 amplifiers [p1,p2,p3,p4,p5] inst = 
@@ -63,7 +62,6 @@ intCode'' (offset, inst, input, output)
            dest = inst!!(offset+3)
            pos1Mode = (opCode `div` 100) `mod` 10
            pos2Mode = (opCode `div` 1000) `mod` 10
-           pos3Mode = (opCode `div` 10000) `mod` 10
            pos1Val = if pos1Mode==0 then inst!!pos1 else pos1
            pos2Val = if pos2Mode==0 then inst!!pos2 else pos2
            (currInput:inputRest) = input
