@@ -56,4 +56,17 @@ spec = do
         let input = ".#..#..###\n####.###.#\n....###.#.\n..###.##.#\n##.##.#.#.\n....###..#\n..#.#..#.#\n#..#.#.###\n.##...##.#\n.....#.#..\n"
         let expected = 41
         day10 input `shouldBe` expected
+    describe "Day10b" $ do
+      it "should get answer for pattern 1" $ do
+        let input=".#....#####...#..\n##...##.#####..##\n##...#...#.#####.\n..#.....X...###..\n..#.#.....#....##"
+        let expected = 801
+        day10b 0 input `shouldBe` expected
+      it "should get answer for pattern 1" $ do
+        let input=".#....#####...#..\n##...##.#####..##\n##...#...#.#####.\n..#.....X...###..\n..#.#.....#....##"
+        let expected = 900
+        day10b 1 input `shouldBe` expected
+      it "should get answer for pattern 1" $ do
+        let input=".#....#####...#..\n##...##.#####..##\n##...#...#.#####.\n..#.....X...###..\n..#.#.....#....##"
+        let expected = 1501 
+        day10b 8 input `shouldBe` expected
 

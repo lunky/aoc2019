@@ -19,8 +19,8 @@ day10' :: String -> [((Int, Int), Int)]
 day10' input = (\set -> map (\y -> (y,length $ canSee y set) ) set) 
                   $ parseInput input
 
-day10b :: String -> Int -> Int
-day10b input offset = (\(x,y) -> (x * 100) + y) $ day10b' center (parseInput input)!!offset
+day10b :: Int -> String -> Int
+day10b offset input = (\(x,y) -> (x * 100) + y) $ day10b' center (parseInput input)!!offset
     where center = fst $ maximumBy (compare `on` snd) $ day10' input
           day10b' center' parsedInput = sortBy (clockwise center')  
                     $ canSee center parsedInput

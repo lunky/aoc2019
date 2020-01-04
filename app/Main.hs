@@ -85,5 +85,5 @@ runDays = do
     let answer = show $ day10 contents 
     putStrLn ("day10: " ++ answer)
 
-    let answer = show $ day10b contents 199
+    let answer = show $ day10b 199 contents
     putStrLn ("day10: " ++ answer)

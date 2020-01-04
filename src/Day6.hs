@@ -52,7 +52,7 @@ _input="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\n"
 _input2 :: String
 _input2="COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN"
 
-parseInput :: String -> [([Char], [Char])]
+parseInput :: String -> [(String, String)]
 parseInput input = map ((\ [a, b] -> (b, a)) . splitOn ")") $ lines input
 
 parseInputTree :: String -> CelestialBody String
