@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-name-shadowing -Wno-incomplete-patterns #-}
 module Day9
     ( 
     day9
@@ -13,6 +14,7 @@ setVal lst idx val = begin ++ (val:end)
         fixedList = if idx < length lst then lst 
                     else take (idx+1) $ lst ++ repeat 0
 
+_input :: String
 _input="109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99"
 
 parseInput :: String -> [Int]

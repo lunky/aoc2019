@@ -11,6 +11,7 @@ import Data.List.Split (splitOn)
 import Data.List  (group, sort)
 import Data.Set()
 
+_input :: String
 _input =  "382345-843167"
 parseInput :: String -> (Int,Int)
 parseInput input = (low,high)

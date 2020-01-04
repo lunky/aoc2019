@@ -14,6 +14,7 @@ day8 (width,height) input = (\y -> countLetters y '2' * countLetters y '1')
                     $ chunksOf (width*height) 
                     $ filter (/='\n') input
 
+leastZeros :: [String] -> String
 leastZeros = minimumBy (compare `on` zeros) 
   where zeros input = countLetters input '0'
 
@@ -24,12 +25,17 @@ day8b :: (Int,Int) -> String -> String
 day8b (width,height) input= unlines $ chunksOf width 
                               $ day8b' input (width, height)
 
+helpShow :: Char -> Char
 helpShow '1' = '#'
 helpShow '0' = ' '
 helpShow x = x
 
+day8b' :: String -> (Int,Int) -> String
 day8b' input (width,height) = map (helpShow.color) $ transpose $ chunksOf (width*height) $ filter (/='\n') input
 
+_input :: String
 _input = "0222112222120000"
 
+
+color :: String -> Char
 color = foldr (\y acc-> if y/='2' then y else acc) '2'

@@ -51,4 +51,5 @@ setVal lst idx val = begin ++ (val:end)
   where (begin, _:end) = splitAt idx lst 
 
 
+_input :: String
 _input="1002,4,3,4,33"

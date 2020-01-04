@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Day7
     ( 
     day7
@@ -21,9 +22,13 @@ day7' programStr phaseStr =   foldr(\y acc -> snd
 parseInput :: String -> [Int]
 parseInput input = map read $ splitOn "," input
     
+_input :: String
 _input = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0"
+_input2 :: String
 _input2 = "43210"
+_input3 :: String
 _input3 = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5"
+_input4 :: String
 _input4 = "3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10"
 
 day7 :: String -> Int 
@@ -66,6 +71,7 @@ intCode'' (offset, inst, input, output)
            pos2Val = if pos2Mode==0 then inst!!pos2 else pos2
            (currInput:inputRest) = input
 
+runSequence :: [(Int,[Int],[Int],[Int])] -> Either [Int] [(Int,[Int],[Int],[Int])]
 runSequence (x:xs) = case intCode'' x of
     Left payload-> Left payload
     Right (offset,inst,input,output)-> Right (connect output xs
@@ -77,11 +83,12 @@ connect output ((offset2, inst2, input2, output2):rest)
 
 
 go :: [(Int, [Int], [Int], [Int])] -> [Int]
+go [] = error "invalid input"
 go [x] = repeat' x
   where 
-    repeat' x = case intCode'' x of
+    repeat' y = case intCode'' y of
         Left payload -> payload
         Right payload -> repeat' payload
 go (x:xs)= case runSequence (x:xs) of
-  Left payload -> go xs
+  Left _ -> go xs
   Right payload -> go payload

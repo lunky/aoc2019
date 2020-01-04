@@ -6,11 +6,13 @@ module Day2
     ) where
 import Data.List.Split (splitOn)
 
+_input :: String
 _input="1,9,10,3,2,3,11,0,99,30,40,50"
 
 day2 :: String -> Int
 day2 input = head $ intCode 0 $ seedInput 12 2 $ parseInput input
 
+day2b :: String -> Int
 day2b input = length $ takeWhile (/=19690720) 
         $ map (\(a,b) -> head $ intCode 0 (seedInput a b parsedInput)) [(x,y) | x<-[0..99], y<-[0..99]]
   where parsedInput = parseInput input
