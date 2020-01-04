@@ -1,4 +1,4 @@
-{-# OPTIONS_GHC -Wno-name-shadowing -Wno-unused-do-bind -Wno-missing-signatures #-}
+{-# OPTIONS_GHC -Wno-name-shadowing -Wno-unused-do-bind #-}
 module Main where
 
 import Data.Time
@@ -14,7 +14,7 @@ import Day8
 import Day9
 import Day10
 
--- timeStamp :: IO ()
+timeStamp :: IO a -> IO ()
 timeStamp f = do 
     c <- getCurrentTime                  --  2009-04-21 14:25:29.5585588 UTC 
     print c
