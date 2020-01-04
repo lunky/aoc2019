@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-name-shadowing -Wno-unused-do-bind -Wno-missing-signatures #-}
 module Main where
 
 import Data.Time
@@ -11,6 +12,7 @@ import Day6
 import Day7
 import Day8
 import Day9
+import Day10
 
 -- timeStamp :: IO ()
 timeStamp f = do 
@@ -79,3 +81,9 @@ runDays = do
     let answer = show $ day9 contents [2]
     putStrLn ("day9b: " ++ answer)
 
+    contents <- readFile "data/day10.txt"
+    let answer = show $ day10 contents 
+    putStrLn ("day10: " ++ answer)
+
+    let answer = show $ day10b contents 199
+    putStrLn ("day10: " ++ answer)

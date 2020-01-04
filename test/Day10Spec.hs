@@ -42,18 +42,18 @@ spec = do
     describe "Day10" $ do
       it "should get answer for pattern 1" $ do
         let input = ".#..#\n.....\n#####\n....#\n...##\n"
-        let expected = ((3,4),8)
+        let expected = 8
         day10 input `shouldBe` expected
       it "should get answer for pattern 3" $ do
         let input = "......#.#.\n#..#.#....\n..#######.\n.#.#.###..\n.#..#.....\n..#....#.#\n#..#....#.\n.##.#..###\n##...#..#.\n.#....####"
-        let expected = ((5,8),33)
+        let expected = 33
         day10 input `shouldBe` expected
       it "should get answer for pattern 4" $ do
         let input = "#.#...#.#.\n.###....#.\n.#....#...\n##.#.#.#.#\n....#.#.#.\n.##..###.#\n..#...##..\n..##....##\n......#...\n.####.###."
-        let expected = ((1,2),35)
+        let expected = 35
         day10 input `shouldBe` expected
       it "should get answer for pattern 5" $ do
         let input = ".#..#..###\n####.###.#\n....###.#.\n..###.##.#\n##.##.#.#.\n....###..#\n..#.#..#.#\n#..#.#.###\n.##...##.#\n.....#.#..\n"
-        let expected = ((6,3),41)
+        let expected = 41
         day10 input `shouldBe` expected
 
