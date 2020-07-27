@@ -7,7 +7,8 @@ module Day7
     )
     where
 
-import Day5
+import Day5 (intCode')
+import IntCode (intCode)
 import Data.Char (digitToInt)
 import Data.List.Split (splitOn)
 import Data.List (permutations)
@@ -37,27 +38,27 @@ day7 input = maximum $  map (day7' input) $ permutations "01234"
 day7b :: String -> Int 
 day7b input = maximum $ map(\y-> head $ go $ amplifiers y (parseInput input)) $ permutations [9,8,7,6,5]
 
-amplifiers :: [Int] -> [Int] -> [(Int,[Int],[Int],[Int])]
+amplifiers :: [Int] -> [Int] -> [(Int,[Int],[Int],[Int],Int)]
 amplifiers [p1,p2,p3,p4,p5] inst = 
-      [ (0, inst, [p1,0], []), 
-        (0, inst, [p2], []), 
-        (0, inst, [p3], []), 
-        (0, inst, [p4], []),
-        (0, inst, [p5], []) ]
-
-intCode'' :: (Int, [Int], [Int], [Int]) -> Either [Int] (Int, [Int], [Int], [Int])
-intCode'' (offset, inst, input, output)
+      [ (0, inst, [p1,0], [],0), 
+        (0, inst, [p2], [],0), 
+        (0, inst, [p3], [],0), 
+        (0, inst, [p4], [],0),
+        (0, inst, [p5], [],0) ]
+{--
+intCode'' :: (Int, [Int], [Int], [Int], Int) -> Either [Int] (Int, [Int], [Int], [Int], Int)
+intCode'' (offset, inst, input, output, relBase)
   | currInst == 99 = Left output
-  | currInst == 3 && null input = Right (offset, inst, input, output) -- wait
-  | currInst == 3 = Right (offset+2,setVal inst pos1 currInput,inputRest,output)
-  | currInst == 4 = Right (offset+2,inst,input,pos1Val:output)
-  | currInst == 1 = Right (offset+4,setVal inst dest (pos1Val + pos2Val),input,output)
-  | currInst == 2 = Right (offset+4,setVal inst dest (pos1Val * pos2Val),input,output)
-  | currInst == 5 = Right (if pos1Val/=0 then pos2Val else offset+3,inst,input,output)
-  | currInst == 6 = Right (if pos1Val==0 then pos2Val else offset+3,inst,input,output)
-  | currInst == 7 = Right (offset+4,setVal inst dest (if pos1Val<pos2Val then 1 else 0),input,output)
-  | currInst == 8 = Right (offset+4,setVal inst dest (if pos1Val==pos2Val then 1 else 0),input,output)
-  | currInst == 0 = Right (offset+pos1Val,inst,input,output)
+  | currInst == 3 && null input = Right (offset, inst, input, output, relBase) -- wait
+  | currInst == 3 = Right (offset+2,setVal inst pos1 currInput,inputRest,output, relBase)
+  | currInst == 4 = Right (offset+2,inst,input,pos1Val:output, relBase)
+  | currInst == 1 = Right (offset+4,setVal inst dest (pos1Val + pos2Val),input,output, relBase)
+  | currInst == 2 = Right (offset+4,setVal inst dest (pos1Val * pos2Val),input,output, relBase)
+  | currInst == 5 = Right (if pos1Val/=0 then pos2Val else offset+3,inst,input,output, relBase)
+  | currInst == 6 = Right (if pos1Val==0 then pos2Val else offset+3,inst,input,output, relBase)
+  | currInst == 7 = Right (offset+4,setVal inst dest (if pos1Val<pos2Val then 1 else 0),input,output, relBase)
+  | currInst == 8 = Right (offset+4,setVal inst dest (if pos1Val==pos2Val then 1 else 0),input,output, relBase)
+  | currInst == 0 = Right (offset+pos1Val,inst,input,output, relBase)
   | otherwise = error ("invalid opcode curr=" ++ show curr ++ " - offset=" ++ show offset ++ " : " ++ show inst)
      where curr = inst!!offset
            currInst=curr `mod` 100
@@ -70,23 +71,24 @@ intCode'' (offset, inst, input, output)
            pos1Val = if pos1Mode==0 then inst!!pos1 else pos1
            pos2Val = if pos2Mode==0 then inst!!pos2 else pos2
            (currInput:inputRest) = input
+--}
 
-runSequence :: [(Int,[Int],[Int],[Int])] -> Either [Int] [(Int,[Int],[Int],[Int])]
-runSequence (x:xs) = case intCode'' x of
+runSequence :: [(Int,[Int],[Int],[Int],Int)] -> Either [Int] [(Int,[Int],[Int],[Int],Int)]
+runSequence (x:xs) = case intCode x of
     Left payload-> Left payload
-    Right (offset,inst,input,output)-> Right (connect output xs
-                                                      ++[(offset,inst,input,[])])
+    Right (offset,inst,input,output,relBase)-> Right (connect output xs
+                                                      ++[(offset,inst,input,[],relBase)])
 
-connect :: [a1] -> [(a2, b, [a1], d)] -> [(a2, b, [a1], d)]
-connect output ((offset2, inst2, input2, output2):rest) 
-    = (offset2, inst2, input2++output, output2):rest
+connect :: [a1] -> [(a2, b, [a1], d, e)] -> [(a2, b, [a1], d, e)]
+connect output ((offset2, inst2, input2, output2, relBase):rest) 
+    = (offset2, inst2, input2++output, output2, relBase):rest
 
 
-go :: [(Int, [Int], [Int], [Int])] -> [Int]
+go :: [(Int, [Int], [Int], [Int], Int)] -> [Int]
 go [] = error "invalid input"
 go [x] = repeat' x
   where 
-    repeat' y = case intCode'' y of
+    repeat' y = case intCode y of
         Left payload -> payload
         Right payload -> repeat' payload
 go (x:xs)= case runSequence (x:xs) of

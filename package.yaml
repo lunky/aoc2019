@@ -55,3 +55,4 @@ tests:
     dependencies:
     - aoc2019
     - hspec
+    - containers
